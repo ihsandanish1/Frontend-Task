@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import GLBViewer from './GLBViewer';
 import padlock from '../public/padlock.png';
 import logoFull from '../public/logo-full.png';
-import set1 from '../public/set-1.jpg';
-import set2 from '../public/set-2.jpg';
+import set1 from '../public/set1.glb';
+import set2 from '../public/set2.glb';
+import set3 from '../public/set3.glb';
 
 const Restricted = () => {
     const [password, setPassword] = useState('');
@@ -116,7 +117,7 @@ const Restricted = () => {
                             <div className="bg-[#242424] p-6 mb-6 rounded-lg shadow-lg">
                                 <div className="w-full aspect-square bg-[#B0B0B0] rounded-lg flex items-center justify-center mb-4">
                                     <div className="w-3/4 h-3/4 rounded-md flex items-center justify-center text-lg font-bold">
-                                        <GLBViewer modelPath='../public/set1.glb' scale={3}/>
+                                        <GLBViewer modelPath={set1} scale={4}/>
                                     </div>
                                 </div>
                                 <h2 className="text-xl font-bold mb-2">Limited Edition Set</h2>
@@ -125,7 +126,7 @@ const Restricted = () => {
                             <div className="bg-[#242424] p-6 mb-6 rounded-lg shadow-lg">
                                 <div className="w-full aspect-square bg-[#B0B0B0] rounded-lg flex items-center justify-center mb-4">
                                     <div className="w-3/4 h-3/4  rounded-md flex items-center justify-center text-lg font-bold">
-                                    <GLBViewer modelPath='../public/set2.glb' scale={4}/>
+                                    <GLBViewer modelPath={set2} scale={4}/>
                                     </div>
                                 </div>
                                 <h2 className="text-xl font-bold mb-2">Premium Collection</h2>
@@ -135,7 +136,7 @@ const Restricted = () => {
                             <div className="bg-[#242424] p-6 mb-6 rounded-lg shadow-lg">
                                 <div className="w-full aspect-square bg-[#B0B0B0] rounded-lg flex items-center relative justify-center mb-4">
                                     <div className="w-3/4 h-3/4  rounded-md flex items-center justify-center text-lg font-bold ">
-                                    <GLBViewer modelPath='../public/set3.glb' scale={4}/>
+                                    <GLBViewer modelPath={set3} scale={4}/>
                                     </div>
                                     <div className='absolute top-0 left-0 w-full  rounded-md flex items-center justify-center bg-light'>
                                             <img src={padlock} className='w-full'/>
