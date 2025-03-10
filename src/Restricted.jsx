@@ -1,0 +1,155 @@
+import React, { useState } from 'react';
+import GLBViewer from './GLBViewer';
+import padlock from '../public/padlock.png';
+import logoFull from '../public/logo-full.png';
+import set1 from '../public/set-1.jpg';
+import set2 from '../public/set-2.jpg';
+
+const Restricted = () => {
+    const [password, setPassword] = useState('');
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    // Handle password submission
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (password === 'Majorszn') {
+            setIsAuthenticated(true);
+            setErrorMessage('');
+        } else {
+            setErrorMessage('Invalid password. Please try again.');
+        }
+    };
+
+    return (
+        <div className="min-h-screen bg-[#181818] text-[#F0F0F0] flex flex-col items-center justify-center">
+            {!isAuthenticated ? (
+                <div className="w-full max-w-md p-8 space-y-8 bg-[#242424] border-[#3F3F3F] rounded-lg shadow-lg">
+                    <div className="flex flex-col items-center justify-center">
+                        <div className="relative mb-6">
+                            <img src={padlock} alt='lock' className='w-[175px] h-[175px]' />
+                        </div>
+                        <h1 className="text-2xl font-bold text-center mb-8">YOU DO NOT HAVE THE XP</h1>
+                        <form onSubmit={handleSubmit} className="w-full space-y-4">
+                            <div>
+                                <label htmlFor="password" className="block text-sm font-medium mb-2">Enter Access Code</label>
+                                <input
+                                    id="password"
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="w-full px-4 py-2 bg-[#181818] border border-[#B0B0B0] rounded-md focus:outline-none focus:ring-2 focus:ring-[#DF3844]"
+                                    placeholder="Enter access code"
+                                />
+                            </div>
+                            {errorMessage && (
+                                <span className="text-red-400 text-sm">{errorMessage}</span>
+                            )}
+                            <button type="submit" className="w-full px-4 py-2 bg-[#E63946] hover:bg-[#DF3844] rounded-md transition-colors duration-300 cursor-pointer">
+                                Unlock Access
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            ) : (
+                <>
+                <nav className=" shadow sticky top-0 bg-[#242424] opacity-90 w-full border-b border-[#3F3F3F]">
+        <div className="w-full px-4">
+            <div className="flex justify-between">
+                <div className="flex space-x-4">
+                    <div>
+                        <a href="#" className="flex items-center py-2 px-2 ">
+                        <img src={logoFull} alt="major" className='w-[75px]' />
+                        </a>
+                    </div>
+
+                    <div className="hidden md:flex items-center space-x-1">
+                        {/* <a href="#" className="py-5 px-3 text-gray-200 font-medium hover:text-[#e63946] border-b-2 border-[#e63946] ">Home</a>
+                        <a href="#" className="py-5 px-3 text-gray-200 hover:text-[#e63946]">Products</a>
+                        <a href="#" className="py-5 px-3 text-gray-200 hover:text-[#e63946]">Services</a>
+                        <a href="#" className="py-5 px-3 text-gray-200 hover:text-[#e63946]">About</a>
+                        <a href="#" className="py-5 px-3 text-gray-200 hover:text-[#e63946]">Contact</a> */}
+                    </div>
+                </div>
+
+                <div className="hidden md:flex items-center space-x-4">
+                    <button onClick={() => setIsAuthenticated(false)} className="px-4 py-1 bg-[#E63946] hover:bg-[#DF3844] rounded-md transition-colors duration-300 cursor-pointer">Logout</button>
+                </div>
+
+                <div className="md:hidden flex items-center">
+                    <button onClick={toggleMobileMenu} className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200">
+                        <svg className="h-6 w-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div className={`mobile-menu md:hidden ${isMobileMenuOpen ? "" : "hidden"}`}>
+            {/* <a href="#" className="block py-2 px-4 text-gray-800 dark:text-white bg-blue-50 dark:bg-blue-900 font-medium border-l-4 border-blue-500 dark:border-blue-400">Home</a>
+            <a href="#" className="block py-2 px-4 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Products</a>
+            <a href="#" className="block py-2 px-4 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Services</a>
+            <a href="#" className="block py-2 px-4 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">About</a>
+            <a href="#" className="block py-2 px-4 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">Contact</a> */}
+            <div className="py-2 px-4 border-t border-gray-200 dark:border-gray-700">
+            <button onClick={() => setIsAuthenticated(false)} className="block my-2 w-full px-4 py-2 bg-[#E63946] hover:bg-[#DF3844] rounded-md transition-colors duration-300 cursor-pointer">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+                    {/* <div className='w-full'>
+                        <header className="flex justify-center items-center mb-12 p-6">
+                            <span>
+                                <img src={logoFull} alt="major" className='w-[150px]' />
+                            </span>
+                        </header>
+                    </div> */}
+                    <div className="w-full p-6 mt-12">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-[90%] mx-auto  ">
+                            <div className="bg-[#242424] p-6 mb-6 rounded-lg shadow-lg">
+                                <div className="w-full aspect-square bg-[#B0B0B0] rounded-lg flex items-center justify-center mb-4">
+                                    <div className="w-3/4 h-3/4 rounded-md flex items-center justify-center text-lg font-bold">
+                                        <GLBViewer modelPath='../public/set1.glb' scale={3}/>
+                                    </div>
+                                </div>
+                                <h2 className="text-xl font-bold mb-2">Limited Edition Set</h2>
+                                <p className="text-gray-400">Exclusive rotating collection item.</p>
+                            </div>
+                            <div className="bg-[#242424] p-6 mb-6 rounded-lg shadow-lg">
+                                <div className="w-full aspect-square bg-[#B0B0B0] rounded-lg flex items-center justify-center mb-4">
+                                    <div className="w-3/4 h-3/4  rounded-md flex items-center justify-center text-lg font-bold">
+                                    <GLBViewer modelPath='../public/set2.glb' scale={4}/>
+                                    </div>
+                                </div>
+                                <h2 className="text-xl font-bold mb-2">Premium Collection</h2>
+                                <p className="text-gray-400">Limited availability rotating item.</p>
+                            </div>
+
+                            <div className="bg-[#242424] p-6 mb-6 rounded-lg shadow-lg">
+                                <div className="w-full aspect-square bg-[#B0B0B0] rounded-lg flex items-center relative justify-center mb-4">
+                                    <div className="w-3/4 h-3/4  rounded-md flex items-center justify-center text-lg font-bold ">
+                                    <GLBViewer modelPath='../public/set3.glb' scale={4}/>
+                                    </div>
+                                    <div className='absolute top-0 left-0 w-full  rounded-md flex items-center justify-center bg-light'>
+                                            <img src={padlock} className='w-full'/>
+                                        </div>
+                                </div>
+                                <h2 className="text-xl font-bold mb-2">Premium Collection</h2>
+                                <p className="text-gray-400">Limited availability rotating item.</p>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
+        </div>
+    );
+};
+
+export default Restricted;
