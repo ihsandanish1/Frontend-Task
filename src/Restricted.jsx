@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import GLBViewer from './GLBViewer';
 import padlock from '../public/padlock.png';
 import logoFull from '../public/logo-full.png';
-import set1 from '../public/set1.glb';
-import set2 from '../public/set2.glb';
-import set3 from '../public/set3.glb';
+// import set1 from '../public/set1.glb';
+// import set2 from '../public/set2.glb';
+// import set3 from '../public/set3.glb';
+import PowerIcon from './Icons/PowerIcon';
+import ShopIcon from './Icons/ShopIcon';
+import MenuIcon from './Icons/MenuIcon';
 
 const Restricted = () => {
     const [password, setPassword] = useState('');
@@ -12,6 +15,8 @@ const Restricted = () => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const [isCollectionHovered, setIsCollectionHovered] = useState(false);
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -29,7 +34,8 @@ const Restricted = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#181818] text-[#F0F0F0] flex flex-col items-center justify-center">
+        <div className="min-h-screen z-0 overflow-hidden relative bg-[#181818] text-[#F0F0F0] flex flex-col items-center justify-center">
+
             {!isAuthenticated ? (
                 <div className="w-full max-w-md p-8 space-y-8 bg-[#242424] border-[#3F3F3F] rounded-lg shadow-lg">
                     <div className="flex flex-col items-center justify-center">
@@ -60,27 +66,53 @@ const Restricted = () => {
                 </div>
             ) : (
                 <>
+
+                <div className="absolute inset-0 z-[-1] opacity-10 bg-contain bg-no-repeat bg-center" style={{ backgroundImage: `url('major-world.png')` }}></div>
+
                 <nav className=" shadow sticky top-0 bg-[#242424] opacity-90 w-full border-b border-[#3F3F3F]">
         <div className="w-full px-4">
             <div className="flex justify-between">
-                <div className="flex space-x-4">
-                    <div>
+                <div className="flex space-x-4 justify-between w-full">
+                    
+
+                    <div className="hidden md:flex items-center justify-start space-x-1 w-1/3">
+                        <a href="#" className="py-5 px-3 text-gray-200 font-medium hover:text-[#e63946] border-b-2 border-[#e63946] ">
+                            <MenuIcon width={24} height={24} fill="none" className="cursor-pointer hover:text-[#e63946]" stroke="currentColor"/>
+                        </a>
+                        <div className="relative inline-block">
+                            <a href="#"  onMouseEnter={() => setIsCollectionHovered(true)}
+        onMouseLeave={() => setIsCollectionHovered(false)} className="py-5 px-3 text-gray-200 hover:text-[#e63946]">Collections</a>
+                        {isCollectionHovered && (
+        <div
+          className="absolute top-full left-0 mt-2 w-48 bg-white shadow-lg rounded-md z-50"
+          onMouseEnter={() => setIsCollectionHovered(true)}
+          onMouseLeave={() => setIsCollectionHovered(false)}
+        >
+          <a href="#" className="block px-4 py-2 bg-[#242424] hover:text-[#e63946]">
+            Collection 1
+          </a>
+          <a href="#" className="block px-4 py-2 bg-[#242424] hover:text-[#e63946]">
+            Collection 2
+          </a>
+          <a href="#" className="block px-4 py-2 bg-[#242424] hover:text-[#e63946]">
+            Collection 3
+          </a>
+        </div>
+      )}
+                        </div>
+                    </div>
+
+                    <div className="w-1/3 flex justify-center">
                         <a href="#" className="flex items-center py-2 px-2 ">
                         <img src={logoFull} alt="major" className='w-[75px]' />
                         </a>
                     </div>
 
-                    <div className="hidden md:flex items-center space-x-1">
-                        {/* <a href="#" className="py-5 px-3 text-gray-200 font-medium hover:text-[#e63946] border-b-2 border-[#e63946] ">Home</a>
-                        <a href="#" className="py-5 px-3 text-gray-200 hover:text-[#e63946]">Products</a>
-                        <a href="#" className="py-5 px-3 text-gray-200 hover:text-[#e63946]">Services</a>
-                        <a href="#" className="py-5 px-3 text-gray-200 hover:text-[#e63946]">About</a>
-                        <a href="#" className="py-5 px-3 text-gray-200 hover:text-[#e63946]">Contact</a> */}
+                    <div className="w-1/3 hidden md:flex items-center justify-end space-x-4">
+                        <PowerIcon onClick={() => setIsAuthenticated(false)} width={24} height={24} fill="none" className="cursor-pointer hover:text-[#e63946]" stroke="currentColor"/>
+                        <ShopIcon width={24} height={24} fill="none" className="cursor-pointer hover:text-[#e63946]" stroke="currentColor"/>
+                        {/* <button onClick={() => setIsAuthenticated(false)} className="px-4 py-1 bg-[#E63946] hover:bg-[#DF3844] rounded-md transition-colors duration-300 cursor-pointer">Logout</button> */}
                     </div>
-                </div>
-
-                <div className="hidden md:flex items-center space-x-4">
-                    <button onClick={() => setIsAuthenticated(false)} className="px-4 py-1 bg-[#E63946] hover:bg-[#DF3844] rounded-md transition-colors duration-300 cursor-pointer">Logout</button>
                 </div>
 
                 <div className="md:hidden flex items-center">
@@ -112,8 +144,8 @@ const Restricted = () => {
                             </span>
                         </header>
                     </div> */}
-                    <div className="w-full p-6 mt-12">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-[90%] mx-auto  ">
+                    <div className="w-full p-6 mt-12 min-h-[85vh]">
+                        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-[90%] mx-auto  ">
                             <div className="bg-[#242424] p-6 mb-6 rounded-lg shadow-lg">
                                 <div className="w-full aspect-square bg-[#B0B0B0] rounded-lg flex items-center justify-center mb-4">
                                     <div className="w-3/4 h-3/4 rounded-md flex items-center justify-center text-lg font-bold">
@@ -145,7 +177,7 @@ const Restricted = () => {
                                 <h2 className="text-xl font-bold mb-2">Premium Collection</h2>
                                 <p className="text-gray-400">Limited availability rotating item.</p>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </>
             )}
